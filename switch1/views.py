@@ -80,5 +80,5 @@ def getMetaData(request):
 
 	validation_rules_list = baseUrlED.getValidationRule(instance_url,access_token)
  
-	return render(request, 'showMetadata.html', {'validation_rule':validation_rules_list})
+	return render(request, 'showMetadata.html', {'validation_rules_list':validation_rules_list})
 	
