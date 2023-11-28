@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["web-production-56c4e.up.railway.app"]
+ALLOWED_HOSTS = ["web-production-56c4e.up.railway.app", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = ["https://web-production-56c4e.up.railway.app"]
 CSRF_ALLOWED_ORIGINS = ["https://web-production-56c4e.up.railway.app"]
 CORS_ORIGINS_WHITELIST = ["https://web-production-56c4e.up.railway.app"]

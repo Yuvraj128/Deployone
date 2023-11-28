@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index,name="index"),
-    path('getAuth',views.oauth_response,name='oauth-response'),
+    path('getAuth/',views.oauth_response,name='oauth-response'),
     path('get-metadata/',views.getMetaData,name='getmetadata'),
 ]

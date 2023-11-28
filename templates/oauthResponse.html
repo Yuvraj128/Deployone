@@ -30,9 +30,9 @@
         <h3>Org Name : {{ org_name }}</h3>
         <form action="{% url 'getmetadata' %}" method="POST">
             {% csrf_token %}
-            <input type="hidden" name="access_token" value=access_token>
-            <input type="hidden" name="instance_url" value=instance_url>
-            <input type="hidden" name="org_id" value=org_id>
+            <input type="hidden" name="access_token" value={{ access_token }}>
+            <input type="hidden" name="instance_url" value={{ instance_url }}>
+            <input type="hidden" name="org_id" value={{ org_id }}>
             <button class="btn-style" type="submit">GetMetaData</button>
         </form>
         
