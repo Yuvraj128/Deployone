@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesforceApp Switch</title>
+    <style>
+        .flex-property{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-style{
+            display:block; 
+            font-size:20px;
+            border-radius: 8px; 
+            border:none; 
+            padding:7px; 
+            cursor:pointer; 
+            background-color: orange; 
+            margin:auto auto; 
+            color: white;
+            margin: 20px
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-property">
+        <h3>Welcome {{ name }}</h3>
+        <h3>Org Name : {{ org_name }}</h3>
+        <form action="{% url 'getmetadata' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="access_token" value=access_token>
+            <input type="hidden" name="instance_url" value=instance_url>
+            <input type="hidden" name="org_id" value=org_id>
+            <button class="btn-style" type="submit">GetMetaData</button>
+        </form>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesforceApp Switch</title>
+    <style>
+        .btn-style{
+            display:block; 
+            font-size:20px;
+            border-radius: 8px; 
+            border:none; 
+            padding:7px; 
+            cursor:pointer; 
+            background-color: orange; 
+            margin:auto auto; 
+            color: white;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        <h1 style="text-align: center;">Login Page</h1>
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <button class="btn-style" type="submit">Login</button>
+        </form>
+        <form action="{% url 'oauth-response' %}" method="post">
+            {% csrf_token %}
+            <button class="btn-style" type="submit">Get access token</button>
+        </form>
+
+
+        
+    </div>
+</body>
+</html>

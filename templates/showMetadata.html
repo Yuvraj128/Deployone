@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesforceApp Switch | MetaData</title>
+    <style>
+        .outermost-div{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #deploy-btn{
+            font-size: 20px;
+            background-color: orange;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            padding: 5px;
+        }
+
+        tr,th{
+            padding: 5px 10px;
+            background-color: lightsteelblue;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div class="outermost-div">
+        <h2>Validation Rules List</h2>
+        <table>
+            <thead>
+                <th>Valdation Name</th>
+                <th>Active</th>
+            </thead>
+            <tbody>
+                <form action="{% url 'getmetadata' %}" method="post">
+                    {% csrf_token %}
+                    {% for valiation_rule in valiation_rules_list %}
+                        <tr>
+                            <td>{{ validation_rule['ValidationName'] }}</td>
+                            <td>
+                                <input type="checkbox" name={{ validation_rule['id'] }} value={{ validation_rule['active'] }}onclick="checkUncheck()">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <!-- <tr>
+                        <td>URL check</td>
+                        <td><input type="checkbox" name="url" id="url"></td>
+                    </tr>
+                    <tr>
+                        <td>Naming Convention</td>
+                        <td><input type="checkbox" name="name" id="name"></td>
+                    </tr> -->
+
+                    <button id='deploy-btn'>Deploy</button>
+                </form>
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
