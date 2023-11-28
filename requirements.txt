@@ -1,14 +1,7 @@
 asgiref==3.7.2
-async-timeout==4.0.2
-attrs==23.1.0
 dataclasses-json==0.5.8
-debugpy==1.6.7
 Django==4.2.2
-ipython==8.13.0
-mysqlclient==2.1.1
 requests==2.31.0
-sqlparse==0.4.4
-suds==1.1.2
 tzdata==2023.3
 python-decouple==3.8
 gunicorn==21.2.0
