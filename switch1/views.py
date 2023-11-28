@@ -33,7 +33,7 @@ def oauth_response(request):
 	auth_response = json.loads(r.text)
  
 	if "error_description" in auth_response:
-		return HttpResponse("There was an error while processing request!!")
+		return HttpResponse(auth_response,"There was an error while processing request!!")
 
 	# print(auth_response,r)
 
