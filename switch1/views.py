@@ -32,8 +32,9 @@ def oauth_response(request):
 	r = requests.post('https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com/services/oauth2/token', headers={ 'content-type':'application/x-www-form-urlencoded'}, data={'grant_type':'authorization_code','client_id': '3MVG9fe4g9fhX0E55ICK9hHRj_kE7_86OIaPUvuoF7c_2LTLBgzXQCrSBNq67U8wJIvhhp4p1G_SKvCpskXJB','client_secret':'B0DE1B8CBB88528F691317E1FAD68CDECB76A409C982157199FC8E97A2E5C319','code_verifier':code_verifier,'redirect_uri': 'https://web-production-56c4e.up.railway.app/getAuth','code': oauth_code})
 	auth_response = json.loads(r.text)
  
-	if "error_description" in auth_response:
-		return HttpResponse(auth_response,"There was an error while processing request!!")
+	# if "error_description" in auth_response:
+	# 	return HttpResponse(auth_response,"There was an error while processing request!!")
+
 
 	# print(auth_response,r)
 
