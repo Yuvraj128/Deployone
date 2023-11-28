@@ -23,7 +23,7 @@ def index(request):
 
 def oauth_response(request):
 	oauth_code = 'aPrxGfV7WpWWFnFGm733VHJINLaPltMcKd0lan8LPcSC7z1KY1txtcvIgD6fAdsVHkrVK5lDXw=='
-	oauth_code = request.GET.get('code')[:-6]+"=="
+	oauth_code = request.GET.get('code')
 	
 	# access_token = '00D5g00000LKlf6!AQ8AQL2.z8mC50lLHtaq11TXLVNAHzB._KWC2e3LJJlx6QZMeacmW5V7DFr.mzLgnVzhycaUuACSqeA.GObjTc2tQKDNkDoB'
 	instance_url = 'https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com'
