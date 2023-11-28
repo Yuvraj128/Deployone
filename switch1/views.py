@@ -65,19 +65,20 @@ def getMetaData(request):
 	instance_url = ''
 	org_id = ''
 	access_token = ''
- 
-	if request.method=="POST":
-		instance_url = request.POST.get('instance_url')
-		access_token = request.POST.get('access_token')
-		org_id = request.POST.get('org_id')
+	validation_rules_list = []
 
-	if request.method=="GET":
-		request.session['session_key'] = access_token
-		request.session.save()
-		print("session ---------------",request.session['session_key'])
-		# print("IN getmetadata method +++++++++++++",access_token,"-------------",instance_url,"---------",org_id)
+	# if request.method=="POST":
+	instance_url = request.POST.get('instance_url')
+	access_token = request.POST.get('access_token')
+	org_id = request.POST.get('org_id')
 
-		validation_rules_list = baseUrlED.getValidationRule(instance_url,access_token)
+	
+	request.session['session_key'] = access_token
+	request.session.save()
+	print("session ---------------",request.session['session_key'])
+	# print("IN getmetadata method +++++++++++++",access_token,"-------------",instance_url,"---------",org_id)
+
+	validation_rules_list = baseUrlED.getValidationRule(instance_url,access_token)
  
 	return render(request, 'showMetadata.html', {'validation_rule':validation_rules_list})
 	
