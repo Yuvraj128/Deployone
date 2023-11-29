@@ -54,6 +54,11 @@
             right: 0;
             background-color: orange;
         }
+
+        .inline-class{
+            display: inline-block;
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
@@ -77,7 +82,6 @@
                                         <input type="hidden" value={{ val2 }} name="check">
                                         <input type="hidden" value={{ instance_url }} name="instance_url">
                                         <input type="hidden" value={{ access_token }} name="access_token">
-                                        <input type="hidden" value={{ val3 }} name="isactive">
                                         {% if val3 %}
                                             <input type="submit" value="" class="checkbox active">
                                         {% else %}
@@ -94,8 +98,22 @@
                     
                     <div>
 
-                        <button class='deploy-btn'>Deavtive All</button>
-                        <button class="deploy-btn">Active All</button>
+                        <form class='inline-class' action="{% url 'deployall' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="access_token" value={{ access_token }}>
+                            <input type="hidden" name="instance_url" value={{ instance_url }}>
+                            <input type="hidden" name="active" value="True">
+                            <button class="btn-style" type="submit">Active All</button>
+                        </form>
+                        <form class='inline-class' action="{% url 'deployall' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="access_token" value={{ access_token }}>
+                            <input type="hidden" name="instance_url" value={{ instance_url }}>
+                            <input type="hidden" name="active" value="False">
+                            <button class="btn-style" type="submit">DeActive All</button>
+                        </form>
+
+                        
                     </div>
                         
                 

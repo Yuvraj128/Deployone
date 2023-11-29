@@ -42,18 +42,26 @@ def getValidationRule(instance_url,access_token):
 
     return ["There was an error"]
 
+def deployAll(instance_url,access_token,active):
+    validation_rules_list = getValidationRule(instance_url,access_token)
 
-# def retrieve_metadata(validation_rule_name):
-#     metadata_url = f'{instance_url}/services/data/v{api_version}/tooling/sobjects/ValidationRule/{validation_rule_name}'
-#     headers = {'Authorization': f'Bearer {access_token}'}
+    headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
+    for v1,validation_rule_name,v2 in validation_rules_list:
+        validation_url = instance_url+'/services/data/v59.0/tooling/sobjects/ValidationRule/'+validation_rule_name
+        metadata_response = requests.get(validation_url,headers=headers)
+        if metadata_response.status_code>=300:
+            return "Error"
+        
+        metadata_data = metadata_response.json()
+        
+        updated_metadata = {}
+        updated_metadata['Metadata'] = metadata_data['Metadata']
+        updated_metadata['Metadata']['active'] = active
+        response = requests.patch(validation_url, headers=headers, json=updated_metadata)
 
-#     response = requests.get(metadata_url, headers=headers)
-#     return response.json()
+    return "Success"
 
-def deployValidationRule(validation_rule_name,active,access_token,instance_url):
-    # metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/{validation_rule_name}'
-    # metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/Account.{validation_rule_name}'
-    # metadata_response = requests.get(metadata_url, headers=headers)
+def deployValidationRule(validation_rule_name,access_token,instance_url):
 
     headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
     
@@ -63,18 +71,12 @@ def deployValidationRule(validation_rule_name,active,access_token,instance_url):
         return metadata_response
     
     metadata_data = metadata_response.json()
-    # metadata_data['Metadata']['active'] = not active
-    # del metadata_data['Id']
     
     updated_metadata = {}
     updated_metadata['Metadata'] = metadata_data['Metadata']
-    updated_metadata['Metadata']['active'] = not active
+    updated_metadata['Metadata']['active'] = not metadata_data['Metadata']['active']
     response = requests.patch(validation_url, headers=headers, json=updated_metadata)
 
-    # updated_metadata = {
-    #     "active": not active
-    # }
-    # response = requests.patch(metadata_url, headers=headers, json=updated_metadata)
     
     return response
 

@@ -78,9 +78,8 @@ def deployMetaData(request):
 	validation_rule_name = request.POST.get('check')
 	access_token = request.POST.get('access_token')
 	instance_url = request.POST.get('instance_url')
-	isactive = request.POST.get('isactive')
  
-	response = baseUrlED.deployValidationRule(validation_rule_name,isactive,access_token,instance_url)
+	response = baseUrlED.deployValidationRule(validation_rule_name,access_token,instance_url)
 
 	if response.status_code>=300:
 		return HttpResponse(response.text)
@@ -94,3 +93,18 @@ def logout(request):
 	r = requests.post(instance_url + '/services/oauth2/revoke', headers={'content-type':'application/x-www-form-urlencoded'}, data={'token': access_token})
 
 	return redirect('/')
+
+
+def deployAll(request):
+    instance_url = request.POST.get('instance_url')
+    access_token = request.POST.get('access_token')
+    active = request.POST.get('active')
+    
+    isactive = True if active=="True" else False
+    
+    response = baseUrlED.deployAll(instance_url,access_token,active)
+    
+    if response=="Erro":
+        return HttpResponse("There was an error. Try Again!!")
+    
+    return showMetaData(request,access_token, instance_url)

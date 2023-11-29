@@ -8,4 +8,5 @@ urlpatterns = [
     path('get-metadata/',views.getMetaData,name='getmetadata'),
     path('deploy/',views.deployMetaData,name='deploy'),
     path('logout/',views.logout,name="logout"),
+    path('deploy-all', views.deployAll,name="deployall"),
 ]
