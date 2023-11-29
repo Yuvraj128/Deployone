@@ -63,9 +63,13 @@ def deployValidationRule(validation_rule_name,active,access_token,instance_url):
         return metadata_response
     
     metadata_data = metadata_response.json()
-    metadata_data['Metadata']['active'] = not active
-    del metadata_data['Id']
-    response = requests.patch(validation_url, headers=headers, json=metadata_data)
+    # metadata_data['Metadata']['active'] = not active
+    # del metadata_data['Id']
+    
+    updated_metadata = {}
+    updated_metadata['Metadata'] = metadata_data['Metadata']
+    updated_metadata['Metadata']['active'] = not active
+    response = requests.patch(validation_url, headers=headers, json=updated_metadata)
 
     # updated_metadata = {
     #     "active": not active
