@@ -52,11 +52,13 @@ def getValidationRule(instance_url,access_token):
 
 def deployValidationRule(validation_rule_name,active,access_token,instance_url):
     # metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/{validation_rule_name}'
-    metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/Account.{validation_rule_name}'
+    # metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/Account.{validation_rule_name}'
+    # metadata_response = requests.get(metadata_url, headers=headers)
 
     headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
     
-    metadata_response = requests.get(metadata_url, headers=headers)
+    validation_url = instance_url+'/services/data/v59.0/tooling/sobjects/ValidationRule/'+validation_rule_name
+    metadata_response = requests.get(validation_url,headers=headers)
     if metadata_response.status_code>=300:
         return metadata_response
     

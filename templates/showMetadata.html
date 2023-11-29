@@ -74,7 +74,7 @@
                                 <form action="{% url 'deploy' %}" method="post">
                                     {% csrf_token %}
                                     <div class="checkbox-style">
-                                        <input type="hidden" value={{ val1 }} name="check">
+                                        <input type="hidden" value={{ val2 }} name="check">
                                         <input type="hidden" value={{ instance_url }} name="instance_url">
                                         <input type="hidden" value={{ access_token }} name="access_token">
                                         <input type="hidden" value={{ val3 }} name="isactive">
