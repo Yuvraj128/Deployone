@@ -75,10 +75,21 @@ def getMetaData(request):
 	
 	request.session['session_key'] = access_token
 	request.session.save()
-	print("session ---------------",request.session['session_key'])
-	# print("IN getmetadata method +++++++++++++",access_token,"-------------",instance_url,"---------",org_id)
 
+	return showMetaData(access_token,instance_url)
+	
+def showMetaData(request,access_token,instance_url):
 	validation_rules_list = baseUrlED.getValidationRule(instance_url,access_token)
  
-	return render(request, 'showMetadata.html', {'validation_rules_list':validation_rules_list})
+	return render(request, 'showMetadata.html', {'validation_rules_list':validation_rules_list, 'instance_url':instance_url, 'access_token':access_token})
 	
+ 
+ 
+def deployMetaData(request):
+	validation_id = request.POST.get('check')
+	access_token = request.POST.get('access_token')
+	instance_url = request.POST.get('instance_url')
+ 
+	
+
+	return showMetaData(access_token, instance_url)

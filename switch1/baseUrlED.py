@@ -4,14 +4,11 @@ import requests
 
 def extractValidationRule(instance_url,data,access_token):
     # data = [{'attributes': {'type': 'ValidationRule', 'url': '/services/data/v59.0/tooling/sobjects/ValidationRule/03d5g000000esILAAY'}, 'Active': False}, {'attributes': {'type': 'ValidationRule', 'url': '/services/data/v59.0/tooling/sobjects/ValidationRule/03d5g000000esIaAAI'}, 'Active': True}, {'attributes': {'type': 'ValidationRule', 'url': '/services/data/v59.0/tooling/sobjects/ValidationRule/03d5g000000esIVAAY'}, 'Active': True}, {'attributes': {'type': 'ValidationRule', 'url': '/services/data/v59.0/tooling/sobjects/ValidationRule/03d5g000000esIfAAI'}, 'Active': True}, {'attributes': {'type': 'ValidationRule', 'url': '/services/data/v59.0/tooling/sobjects/ValidationRule/03d5g000000esIpAAI'}, 'Active': True}, {'attributes': {'type': 'ValidationRule', 'url': '/services/data/v59.0/tooling/sobjects/ValidationRule/03d5g000000esIuAAI'}, 'Active': True}]
-    print("data type is ===============",type(data),data)
     data = data['records']
     validation_rules = []
     for attr in data:
         url = attr['attributes']['url'] 
-        # instance_url = "https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com"
         validation_url = instance_url+url
-        # access_token = '00D5g00000LKlf6!AQ8AQJ_Sf0fJCbnmh9t3.dNcSx1CF4RBBwoIlVqylaXnljpgKVmRB2NkVZHL2XAYAsbD0wJ.WCxpm1WAWslNcAHDKuzyTFVD'
 
         headers = {
             "Authorization": f"Bearer {access_token}",
@@ -21,7 +18,7 @@ def extractValidationRule(instance_url,data,access_token):
         res = requests.get(validation_url,headers=headers).json()
 
         validation_rule = {'ValidationName':res['ValidationName'],'id':res['Id'],'active':res['Active']}
-        validation_rules.append(validation_rule)
+        validation_rule.append([res['ValidationName'], res['Id'], res['Active']])
     
     return validation_rules
     

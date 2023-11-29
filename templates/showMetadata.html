@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalesforceApp Switch | MetaData</title>
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
     <style>
+        table{
+            border: 1px solid black;
+        }
         .outermost-div{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-        #deploy-btn{
+        .deploy-btn{
             font-size: 20px;
             background-color: orange;
             color: white;
@@ -19,47 +23,81 @@
             cursor: pointer;
             margin: 10px;
             padding: 5px;
+            margin: 0 auto;
+
         }
 
         tr,th{
-            padding: 5px 10px;
+            padding: 10px;
             background-color: lightsteelblue;
             border: 1px solid white;
+            width: 30%;
+            text-align: center;
+        }
+
+        .checkbox-style{
+            position: relative;
+            width: 40px;
+            height: 20px;
+            border: 1px solid black;
+            background-color: rgb(197, 195, 195)
+        }
+        .checkbox{
+            width: 50%;
+            box-shadow: 1px 1px 2px black;
+            position: absolute;
+        }
+        .deactive{
+            left: 0;
+        }
+        .active{
+            right: 0;
+            background-color: orange;
         }
     </style>
 </head>
 <body>
     <div class="outermost-div">
         <h2>Validation Rules List</h2>
-        <p>{{ validation_rules_list }}</p>
         <table>
             <thead>
                 <th>Valdation Name</th>
                 <th>Active</th>
             </thead>
             <tbody>
-                <form action="{% url 'getmetadata' %}" method="post">
+                
                     {% csrf_token %}
-                    {% for valiation_rule in valiation_rules_list %}
+                    {% for val1,val2,val3 in validation_rules_list %}
                         <tr>
-                            <td>{{ validation_rule['ValidationName'] }}</td>
+                            <td>{{ val1 }}</td>
                             <td>
-                                <input type="checkbox" name={{ validation_rule['id'] }} value={{ validation_rule['active'] }}onclick="checkUncheck()">
+                                <form action="{% url 'deploy' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="checkbox-style">
+                                        <input type="hidden" value={{ val2 }} name="check">
+                                        <input type="hidden" value={{ instance_url }} name="instance_url">
+                                        <input type="hidden" value={{ access_token }} name="access_token">
+                                        {% if val3 %}
+                                            <input type="submit" value="" class="checkbox active">
+                                        {% else %}
+                                            <input type="submit" value="" class="checkbox deactive">
+                                        {% endif %}
+                                    </div>
+                                
+                                
+                                </form>
                             </td>
                         </tr>
+                        
                     {% endfor %}
-                    <!-- <tr>
-                        <td>URL check</td>
-                        <td><input type="checkbox" name="url" id="url"></td>
-                    </tr>
-                    <tr>
-                        <td>Naming Convention</td>
-                        <td><input type="checkbox" name="name" id="name"></td>
-                    </tr> -->
+                    
+                    <div>
 
-                    <button id='deploy-btn'>Deploy</button>
+                        <button class='deploy-btn'>Deavtive All</button>
+                        <button class="deploy-btn">Active All</button>
+                    </div>
+                        
                 
-                </form>
                 
             </tbody>
         </table>
