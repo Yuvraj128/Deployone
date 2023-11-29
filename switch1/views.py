@@ -75,7 +75,7 @@ def showMetaData(request,access_token,instance_url):
  
  
 def deployMetaData(request):
-	validation_id = request.POST.get('check')
+	validation_rule_name = request.POST.get('check')
 	access_token = request.POST.get('access_token')
 	instance_url = request.POST.get('instance_url')
 	isactive = request.POST.get('isactive')
