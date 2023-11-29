@@ -77,6 +77,7 @@
                                         <input type="hidden" value={{ val2 }} name="check">
                                         <input type="hidden" value={{ instance_url }} name="instance_url">
                                         <input type="hidden" value={{ access_token }} name="access_token">
+                                        <input type="hidden" value={{ val3 }} name="isactive">
                                         {% if val3 %}
                                             <input type="submit" value="" class="checkbox active">
                                         {% else %}
@@ -103,7 +104,7 @@
         </table>
     </div>
 
-    <script>
+    <!-- <script>
         let val = document.querySelectorAll('.checkbox')
         val.forEach(v=>{
             v.addEventListener('click',(event)=>{
@@ -118,6 +119,6 @@
                 }
             })
         })
-    </script>
+    </script> -->
 </body>
 </html>

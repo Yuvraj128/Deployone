@@ -41,6 +41,33 @@ def getValidationRule(instance_url,access_token):
         return validation_rules_list
 
     return ["There was an error"]
+
+
+# def retrieve_metadata(validation_rule_name):
+#     metadata_url = f'{instance_url}/services/data/v{api_version}/tooling/sobjects/ValidationRule/{validation_rule_name}'
+#     headers = {'Authorization': f'Bearer {access_token}'}
+
+#     response = requests.get(metadata_url, headers=headers)
+#     return response.json()
+
+def deployValidationRule(request,validation_rule_name,active,access_token):
+    metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/{validation_rule_name}'
+    headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
+    updated_metadata = {
+        "active": not active
+    }
+    response = requests.patch(metadata_url, headers=headers, json=updated_metadata)
+    
+    return response
+
+
+
+
+
+
+
+
+
 # getValidationRule('https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com','00D5g00000LKlf6!AQ8AQCShlUGAN8z79OvZa8JTke4z4BXry5h11zcc_h5fCJtZylaiKLCki8QOIteME8z5fhlTDfvd8IRCyVfGAdkN9Ub4Rgpm')
 # print(check.sayHI())
 

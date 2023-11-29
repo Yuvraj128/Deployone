@@ -14,7 +14,7 @@ def index(request):
     if request.method=='POST':
 
         # print("POST")
-        url = 'https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com/services/oauth2/authorize?client_id=3MVG9fe4g9fhX0E55ICK9hHRj_kE7_86OIaPUvuoF7c_2LTLBgzXQCrSBNq67U8wJIvhhp4p1G_SKvCpskXJB&redirect_uri=https://web-production-56c4e.up.railway.app/getAuth&response_type=code&code_challenge_method=S256&code_challenge='+code_challenge
+        url = 'https://login.salesforce.com/services/oauth2/authorize?client_id=3MVG9fe4g9fhX0E55ICK9hHRj_kE7_86OIaPUvuoF7c_2LTLBgzXQCrSBNq67U8wJIvhhp4p1G_SKvCpskXJB&redirect_uri=https://web-production-56c4e.up.railway.app/getAuth&response_type=code&code_challenge_method=S256&code_challenge='+code_challenge
 
         return HttpResponseRedirect(url)
         
@@ -24,7 +24,7 @@ def index(request):
 def oauth_response(request):
 	oauth_code = request.GET.get('code')
 	
-	r = requests.post('https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com/services/oauth2/token', headers={ 'content-type':'application/x-www-form-urlencoded'}, data={'grant_type':'authorization_code','client_id': '3MVG9fe4g9fhX0E55ICK9hHRj_kE7_86OIaPUvuoF7c_2LTLBgzXQCrSBNq67U8wJIvhhp4p1G_SKvCpskXJB','client_secret':'B0DE1B8CBB88528F691317E1FAD68CDECB76A409C982157199FC8E97A2E5C319','code_verifier':code_verifier,'redirect_uri': 'https://web-production-56c4e.up.railway.app/getAuth','code': oauth_code})
+	r = requests.post('https://login.salesforce.com/services/oauth2/token', headers={ 'content-type':'application/x-www-form-urlencoded'}, data={'grant_type':'authorization_code','client_id': '3MVG9fe4g9fhX0E55ICK9hHRj_kE7_86OIaPUvuoF7c_2LTLBgzXQCrSBNq67U8wJIvhhp4p1G_SKvCpskXJB','client_secret':'B0DE1B8CBB88528F691317E1FAD68CDECB76A409C982157199FC8E97A2E5C319','code_verifier':code_verifier,'redirect_uri': 'https://web-production-56c4e.up.railway.app/getAuth','code': oauth_code})
 	auth_response = json.loads(r.text)
 
 	if 'error_description' in auth_response:
@@ -58,14 +58,12 @@ def getMetaData(request):
 	access_token = ''
 	validation_rules_list = []
 
-	# if request.method=="POST":
-	instance_url = request.POST.get('instance_url')
-	access_token = request.POST.get('access_token')
-	org_id = request.POST.get('org_id')
-
-	
-	request.session['session_key'] = access_token
-	request.session.save()
+	if request.method=="POST":
+		instance_url = request.POST.get('instance_url')
+		access_token = request.POST.get('access_token')
+		org_id = request.POST.get('org_id')
+		request.session['session_key'] = access_token
+		request.session.save()
 
 	return showMetaData(request,access_token,instance_url)
 	
@@ -80,8 +78,12 @@ def deployMetaData(request):
 	validation_id = request.POST.get('check')
 	access_token = request.POST.get('access_token')
 	instance_url = request.POST.get('instance_url')
+	isactive = request.POST.get('isactive')
  
-	
+	response = baseUrlED.deployValidationRule(validation_id,isactive,access_token)
+
+	if response.status_code>=300:
+		return HttpResponse("There was an error while deployment")
 
 	return showMetaData(request,access_token, instance_url)
 
