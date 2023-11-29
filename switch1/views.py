@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 import requests
 import json
@@ -91,4 +91,4 @@ def logout(request):
 	instance_url = request.POST.get('instance_url')
 	r = requests.post(instance_url + '/services/oauth2/revoke', headers={'content-type':'application/x-www-form-urlencoded'}, data={'token': access_token})
 
-	return HttpResponse("Logged Out successfully")
+	return redirect('/')
