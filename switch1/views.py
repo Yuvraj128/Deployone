@@ -83,7 +83,7 @@ def deployMetaData(request):
 	response = baseUrlED.deployValidationRule(validation_id,isactive,access_token,instance_url)
 
 	if response.status_code>=300:
-		return HttpResponse("There was an error while deployment")
+		return HttpResponse(response.text)
 
 	return showMetaData(request,access_token, instance_url)
 
