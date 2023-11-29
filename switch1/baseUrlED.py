@@ -57,6 +57,9 @@ def deployValidationRule(validation_rule_name,active,access_token,instance_url):
     headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
     
     metadata_response = requests.get(metadata_url, headers=headers)
+    if metadata_response.status_code>=300:
+        return metadata_response
+    
     metadata_data = metadata_response.json()
     metadata_data['Metadata']['active'] = not active
 
