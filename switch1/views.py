@@ -80,7 +80,7 @@ def deployMetaData(request):
 	instance_url = request.POST.get('instance_url')
 	isactive = request.POST.get('isactive')
  
-	response = baseUrlED.deployValidationRule(validation_id,isactive,access_token,instance_url)
+	response = baseUrlED.deployValidationRule(validation_rule_name,isactive,access_token,instance_url)
 
 	if response.status_code>=300:
 		return HttpResponse(response.text)
