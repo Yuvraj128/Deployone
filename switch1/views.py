@@ -76,7 +76,7 @@ def getMetaData(request):
 	request.session['session_key'] = access_token
 	request.session.save()
 
-	return showMetaData(access_token,instance_url)
+	return showMetaData(request,access_token,instance_url)
 	
 def showMetaData(request,access_token,instance_url):
 	validation_rules_list = baseUrlED.getValidationRule(instance_url,access_token)
@@ -92,4 +92,4 @@ def deployMetaData(request):
  
 	
 
-	return showMetaData(access_token, instance_url)
+	return showMetaData(request,access_token, instance_url)
