@@ -22,23 +22,14 @@ def index(request):
 
 
 def oauth_response(request):
-	oauth_code = 'aPrxGfV7WpWWFnFGm733VHJINLaPltMcKd0lan8LPcSC7z1KY1txtcvIgD6fAdsVHkrVK5lDXw=='
 	oauth_code = request.GET.get('code')
-	
-	# access_token = '00D5g00000LKlf6!AQ8AQL2.z8mC50lLHtaq11TXLVNAHzB._KWC2e3LJJlx6QZMeacmW5V7DFr.mzLgnVzhycaUuACSqeA.GObjTc2tQKDNkDoB'
-	instance_url = 'https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com'
-
 	
 	r = requests.post('https://lakshminaraincollegeoftech9-dev-ed.develop.my.salesforce.com/services/oauth2/token', headers={ 'content-type':'application/x-www-form-urlencoded'}, data={'grant_type':'authorization_code','client_id': '3MVG9fe4g9fhX0E55ICK9hHRj_kE7_86OIaPUvuoF7c_2LTLBgzXQCrSBNq67U8wJIvhhp4p1G_SKvCpskXJB','client_secret':'B0DE1B8CBB88528F691317E1FAD68CDECB76A409C982157199FC8E97A2E5C319','code_verifier':code_verifier,'redirect_uri': 'https://web-production-56c4e.up.railway.app/getAuth','code': oauth_code})
 	auth_response = json.loads(r.text)
- 
-	# if "error_description" in auth_response:
-	# 	return HttpResponse(auth_response,"There was an error while processing request!!")
 
+	if 'error_description' in auth_response:
+		return HttpResponse("There was an error. Try Again!!")
 
-	# print(auth_response,r)
-
-	
 	access_token = auth_response['access_token']
 	instance_url = auth_response['instance_url']
 	user_id = auth_response['id'][-18:]
@@ -99,3 +90,5 @@ def logout(request):
 	access_token = request.POST.get('access_token')
 	instance_url = request.POST.get('instance_url')
 	r = requests.post(instance_url + '/services/oauth2/revoke', headers={'content-type':'application/x-www-form-urlencoded'}, data={'token': access_token})
+
+	return HttpResponse("Logged Out successfully")

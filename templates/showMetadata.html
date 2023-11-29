@@ -102,5 +102,22 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        let val = document.querySelectorAll('.checkbox')
+        val.forEach(v=>{
+            v.addEventListener('click',(event)=>{
+                event.preventDefault()
+                let l = v.classList
+                console.log(l)
+                if(l.contains('active')){
+                    l.replace('active','deactive')
+                }
+                else{
+                    l.replace('deactive','active')
+                }
+            })
+        })
+    </script>
 </body>
 </html>
