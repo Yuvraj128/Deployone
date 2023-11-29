@@ -22,6 +22,7 @@
             margin:auto auto; 
             color: white;
             margin: 20px;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -36,6 +37,15 @@
             <input type="hidden" name="org_id" value={{ org_id }}>
             <button class="btn-style" type="submit">GetMetaData</button>
         </form>
+
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="access_token" value={{ access_token }}>
+            <input type="hidden" name="instance_url" value={{ instance_url }}>
+            <button class="btn-style" type="submit">Logout</button>
+        </form>
+
+
         
     </div>
 </body>

@@ -17,8 +17,7 @@ def extractValidationRule(instance_url,data,access_token):
 
         res = requests.get(validation_url,headers=headers).json()
 
-        validation_rule = {'ValidationName':res['ValidationName'],'id':res['Id'],'active':res['Active']}
-        validation_rule.append([res['ValidationName'], res['Id'], res['Active']])
+        validation_rules.append([res['ValidationName'], res['Id'], res['Active']])
     
     return validation_rules
     

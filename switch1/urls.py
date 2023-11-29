@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index,name="index"),
     path('getAuth/',views.oauth_response,name='oauth-response'),
     path('get-metadata/',views.getMetaData,name='getmetadata'),
-    path('deploy/',views.deployMetaData,name='deploy')
+    path('deploy/',views.deployMetaData,name='deploy'),
+    path('logout/',views.logout,name="logout"),
 ]

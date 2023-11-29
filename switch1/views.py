@@ -93,3 +93,9 @@ def deployMetaData(request):
 	
 
 	return showMetaData(request,access_token, instance_url)
+
+
+def logout(request):
+	access_token = request.POST.get('access_token')
+	instance_url = request.POST.get('instance_url')
+	r = requests.post(instance_url + '/services/oauth2/revoke', headers={'content-type':'application/x-www-form-urlencoded'}, data={'token': access_token})
