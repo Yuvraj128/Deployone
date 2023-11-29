@@ -51,8 +51,8 @@ def getValidationRule(instance_url,access_token):
 #     return response.json()
 
 def deployValidationRule(validation_rule_name,active,access_token,instance_url):
-    metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/{validation_rule_name}'
-    # metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/Account.{validation_rule_name}'
+    # metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/{validation_rule_name}'
+    metadata_url = f'{instance_url}/services/data/v59.0/tooling/sobjects/ValidationRule/Account.{validation_rule_name}'
 
     headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
     
