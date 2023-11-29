@@ -23,7 +23,7 @@
             cursor: pointer;
             margin: 10px;
             padding: 5px;
-            margin: 0 auto;
+            margin: 10px auto;
 
         }
 
@@ -103,14 +103,14 @@
                             <input type="hidden" name="access_token" value={{ access_token }}>
                             <input type="hidden" name="instance_url" value={{ instance_url }}>
                             <input type="hidden" name="active" value="True">
-                            <button class="btn-style" type="submit">Active All</button>
+                            <button class="deploy-btn" type="submit">Active All</button>
                         </form>
                         <form class='inline-class' action="{% url 'deployall' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="access_token" value={{ access_token }}>
                             <input type="hidden" name="instance_url" value={{ instance_url }}>
                             <input type="hidden" name="active" value="False">
-                            <button class="btn-style" type="submit">DeActive All</button>
+                            <button class="deploy-btn" type="submit">DeActive All</button>
                         </form>
 
                         
@@ -120,6 +120,13 @@
                 
             </tbody>
         </table>
+
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="access_token" value={{ access_token }}>
+            <input type="hidden" name="instance_url" value={{ instance_url }}>
+            <button class="deploy-btn" type="submit">Logout</button>
+        </form>
     </div>
 
     <!-- <script>
